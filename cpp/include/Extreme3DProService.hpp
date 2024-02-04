@@ -29,15 +29,15 @@ namespace JoystickLibrary
 
         const int NUMBER_BUTTONS = 12;
 
-        static Extreme3DProService& GetInstance()
-        {
-            static Extreme3DProService instance;
-            return instance;
-        }
+        // static Extreme3DProService& GetInstance()
+        // {
+        //     static Extreme3DProService instance;
+        //     return instance;
+        // }
 
         Extreme3DProService();
-        Extreme3DProService(Extreme3DProService const&) = delete;
-        void operator=(Extreme3DProService const&) = delete;
+        // Extreme3DProService(Extreme3DProService const&) = delete;
+        // void operator=(Extreme3DProService const&) = delete;
         ~Extreme3DProService();
 
         /**

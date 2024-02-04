@@ -77,6 +77,13 @@ bool Extreme3DProService::GetPOV(int joystickID, POV% pov)
     return success;
 }
 
+int Extreme3DProService::GetFirstId()
+{
+    System::Collections::Generic::List<int> ids = GetIDs();
+    if(ids.Count > 0) return ids[0];
+    else return NULL;
+}
+
 System::Collections::Generic::List<int>^ Extreme3DProService::GetIDs()
 {
     std::vector<int> ids = this->es.GetIDs();

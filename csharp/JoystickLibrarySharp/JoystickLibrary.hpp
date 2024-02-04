@@ -47,11 +47,12 @@ namespace JoystickLibrarySharp
         bool GetButton(int joystickID, Extreme3DProButton button, System::Boolean% buttonVal);
         bool GetButtons(int joystickID, array<bool>^% buttons);
         bool GetPOV(int joystickID, POV% pov);
+        int GetFirstId();
         System::Collections::Generic::List<int>^ GetIDs();
         System::Int32 Extreme3DProService::GetNumberConnected();
 
     private:
-        JoystickLibrary::Extreme3DProService& es = JoystickLibrary::Extreme3DProService::GetInstance();
+        JoystickLibrary::Extreme3DProService& es = JoystickLibrary::Extreme3DProService();
     };
 
     public enum class Xbox360Button : int

@@ -15,7 +15,7 @@ namespace JoystickLibrary
         const std::vector<int>& GetIDs() const;
 
     protected:
-#ifdef _WIN32
+#ifdef _WIN64
         const std::array<POV, 8> povList = {
             POV::POV_NORTH,
             POV::POV_NORTHEAST,

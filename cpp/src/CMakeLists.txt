@@ -3,10 +3,10 @@ set (CMAKE_CXX_STANDARD 11)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-file(GLOB JOYSTICK_LIBRARY_WIN32_SRC
+file(GLOB JOYSTICK_LIBRARY_WIN64_SRC
     ${CMAKE_SOURCE_DIR}/include/*.h*
     ${CMAKE_SOURCE_DIR}/src/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/win32/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/win64/*.cpp
 )
 
 file(GLOB JOYSTICK_LIBRARY_LINUX_SRC
@@ -17,7 +17,7 @@ file(GLOB JOYSTICK_LIBRARY_LINUX_SRC
 
 if(MSVC)
     add_definitions(-DUNICODE -D_UNICODE)
-    add_library(JoystickLibrary STATIC ${JOYSTICK_LIBRARY_WIN32_SRC})
+    add_library(JoystickLibrary STATIC ${JOYSTICK_LIBRARY_WIN64_SRC})
     target_link_libraries (JoystickLibrary ${CMAKE_THREAD_LIBS_INIT} user32)
 
     # Force to always compile with W4
@@ -26,7 +26,7 @@ if(MSVC)
     else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
     endif()
-    
+
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -pedantic")
     find_package(PkgConfig)

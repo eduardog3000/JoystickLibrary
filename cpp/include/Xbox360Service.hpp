@@ -4,7 +4,7 @@
 
 namespace JoystickLibrary
 {
-#ifdef _WIN32
+#ifdef _WIN64
     enum class Xbox360Button : int
     {
         A = 0,

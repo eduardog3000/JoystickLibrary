@@ -6,9 +6,9 @@
 #include <string>
 #include <algorithm>
 
-#ifdef _WIN32
+#ifdef _WIN64
     #define DIRECTINPUT_VERSION 0x0800
-    #define WIN32_LEAN_AND_MEAN
+    #define WIN64_LEAN_AND_MEAN
 
     #include <dinput.h>
     #include <windows.h>

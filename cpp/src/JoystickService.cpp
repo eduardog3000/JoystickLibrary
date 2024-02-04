@@ -18,6 +18,8 @@ bool JoystickLibrary::JoystickService::Initialize()
     if (this->initialized)
         return true;
 
+    ids = std::vector<int>();
+
     enumerator.RegisterInstance(std::bind(&JoystickService::OnDeviceChanged, this, std::placeholders::_1));
     bool success = enumerator.Start();
     this->initialized = success;
@@ -41,7 +43,7 @@ bool JoystickService::IsValidJoystickID(int id) const
 
 JoystickState JoystickLibrary::JoystickService::GetState(int id) const
 {
-#ifdef _WIN32
+#ifdef _WIN64
     DIJOYSTATE js;
     HRESULT hr;
     hr = enumerator.impl->jsMap[id].handle->GetDeviceState(sizeof(JoystickState), &js);
@@ -148,7 +150,7 @@ void JoystickService::ProcessDeviceChange(std::vector<JoystickDescriptor> id_lis
     }
 }
 
-#ifndef _WIN32
+#ifndef _WIN64
 // on linux, use ioctl to get initial states for joysticks
 int JoystickLibrary::JoystickService::GetAxis(int id, int axisId) const
 {

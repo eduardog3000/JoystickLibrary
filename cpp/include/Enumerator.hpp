@@ -10,24 +10,24 @@ namespace JoystickLibrary
         // common implementation fields //
         std::map<int, JoystickData> jsMap;
 
-#ifdef _WIN32
-        HWND enumerationhWnd;
+#ifdef _WIN64
+        HWND enumerationHwnd;
         HDEVNOTIFY enumerationHNotify;
         HANDLE enumThread;
         LPDIRECTINPUT8 di;
 
-        EnumeratorImpl::EnumeratorImpl()
+        EnumeratorImpl()
         {
-            enumerationhWnd = nullptr;
+            enumerationHwnd = nullptr;
             enumerationHNotify = nullptr;
             di = nullptr;
             enumThread = nullptr;
         }
 
-        EnumeratorImpl::~EnumeratorImpl()
+        ~EnumeratorImpl()
         {
-            if (enumerationhWnd)
-                DestroyWindow(enumerationhWnd);
+            if (enumerationHwnd)
+                DestroyWindow(enumerationHwnd);
             if (enumerationHNotify)
                 UnregisterDeviceNotification(enumerationHNotify);
             if (di)
@@ -35,7 +35,7 @@ namespace JoystickLibrary
             if (enumThread)
                 TerminateThread(enumThread, 0);
 
-            enumerationhWnd = nullptr;
+            enumerationHwnd = nullptr;
             enumerationHNotify = nullptr;
             di = nullptr;
             enumThread = nullptr;

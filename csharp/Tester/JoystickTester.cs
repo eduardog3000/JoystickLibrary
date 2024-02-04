@@ -125,8 +125,8 @@ namespace JoystickLibraryTester
 
         static void Main(string[] args)
         {
-            Extreme3DProService es = new Extreme3DProService();
-            Xbox360Service xs = new Xbox360Service();
+            var es = new Extreme3DProService();
+            var xs = new Xbox360Service();
             if (!xs.Initialize())
             {
                 Console.WriteLine("Failed to initialize Xbox!");

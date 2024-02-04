@@ -1,4 +1,5 @@
 #include "Enumerator.hpp"
+#include <stdexcept>
 
 using namespace JoystickLibrary;
 
@@ -43,7 +44,7 @@ static LRESULT CALLBACK EnumWndMsgProc(
             }
             break;
         }
-            
+
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
     }
@@ -75,8 +76,8 @@ static DWORD WINAPI EnumThread(
     if (!RegisterClassEx(&wx))
         return false;
 
-    impl->enumerationhWnd = CreateWindowEx(0, ENUMERATOR_CLASS_NAME, ENUMERATOR_WND_NAME, 0, 0, 0, 0, 0, HWND_MESSAGE, NULL, NULL, NULL);
-    if (!impl->enumerationhWnd)
+    impl->enumerationHwnd = CreateWindowEx(0, ENUMERATOR_CLASS_NAME, ENUMERATOR_WND_NAME, 0, 0, 0, 0, 0, HWND_MESSAGE, NULL, NULL, NULL);
+    if (!impl->enumerationHwnd)
         return false;
 
     // tell Windows to send us the device change notification
@@ -84,7 +85,7 @@ static DWORD WINAPI EnumThread(
     NotificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
     NotificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
     NotificationFilter.dbcc_classguid = HID_CLASS_GUID;
-    impl->enumerationHNotify = RegisterDeviceNotification(impl->enumerationhWnd, &NotificationFilter, DEVICE_NOTIFY_WINDOW_HANDLE);
+    impl->enumerationHNotify = RegisterDeviceNotification(impl->enumerationHwnd, &NotificationFilter, DEVICE_NOTIFY_WINDOW_HANDLE);
 
     // pump messages
     while ((retVal = GetMessage(&msg, NULL, 0, 0)) != 0)
@@ -100,7 +101,7 @@ static DWORD WINAPI EnumThread(
 }
 
 static BOOL CALLBACK JoystickConfigCallback(
-    LPCDIDEVICEOBJECTINSTANCE  instance,
+    LPCDIDEVICEOBJECTINSTANCE instance,
     LPVOID context
 )
 {
@@ -127,7 +128,7 @@ static BOOL CALLBACK JoystickConfigCallback(
 }
 
 static BOOL CALLBACK EnumerateJoysticks(
-    LPCDIDEVICEINSTANCE instance, 
+    LPCDIDEVICEINSTANCE instance,
     LPVOID context
 )
 {
@@ -181,7 +182,7 @@ static BOOL CALLBACK EnumerateJoysticks(
             pair.second.alive = true;
             inactiveJoystick->Acquire();
             joystick->Release();
-            
+
             DeviceStateChange dsc;
             dsc.descriptor = pair.second.descriptor;
             dsc.id = pair.first;
